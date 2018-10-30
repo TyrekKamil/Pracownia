@@ -32,7 +32,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        pracownia.introduction.Main
+                                        java.add_people
                                     </mainClass>
                                 </manifest>
                             </archive>
