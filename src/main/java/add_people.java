@@ -1,7 +1,5 @@
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class add_people {
 
@@ -9,12 +7,13 @@ public class add_people {
 
     {
         Scanner reader = new Scanner(System.in);  // Reading from System.in
-        HashMap people;
-        Array list = new ArrayList();
+        ArrayList<String> Person = new ArrayList<String>();
+        HashMap<String, ArrayList<String> > people;
+        people = new HashMap<>();
 
         while(true)
         {
-            people = new HashMap();
+
             System.out.println("Wpisz miasto:");
             String city = reader.nextLine();
             String other = reader.nextLine();
@@ -24,7 +23,10 @@ public class add_people {
             {
                 String pesel = sp[2];
                 System.out.println(isPeselGood(pesel));
-
+                Person.add(other);
+                people.put(city,Person);
+              //  System.out.println(Arrays.asList(people));
+                System.out.println(Arrays.asList(Person));
             }
 
             else
