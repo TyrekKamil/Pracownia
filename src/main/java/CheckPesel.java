@@ -27,8 +27,6 @@ public class CheckPesel {
         sum %= 10;
         sum = 10 - sum;
         sum %= 10;
-        System.out.println(sum);
-        System.out.println(psl_id[10]);
 
         if(sum==psl_id[10])
             return true;
