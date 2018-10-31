@@ -1,4 +1,9 @@
-import java.lang.reflect.Array;
+import org.eclipse.collections.api.RichIterable;
+import org.eclipse.collections.impl.multimap.list.FastListMultimap;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class add_people {
@@ -6,27 +11,29 @@ public class add_people {
     public static void main(String[] args)
 
     {
-        Scanner reader = new Scanner(System.in);  // Reading from System.in
-        ArrayList<String> Person = new ArrayList<String>();
-        HashMap<String, ArrayList<String> > people;
-        people = new HashMap<>();
-
+        FastListMultimap<String, String> ListofPeople = FastListMultimap.newMultimap();
+        Scanner reader = new Scanner(System.in);
+        String pesel, city,other;
+        String outText;
         while(true)
         {
 
             System.out.println("Wpisz miasto:");
-            String city = reader.nextLine();
-            String other = reader.nextLine();
+            city = reader.nextLine();
+            other = reader.nextLine();
             String[] sp = other.split(" ");
 
-            if(sp[0] != null && sp[1] != null && sp[2]!= null)
+
+            if(sp[0] != null && sp[1] != null && sp[2]!= null && city != null)
             {
-                String pesel = sp[2];
+                pesel = sp[2];
                 System.out.println(isPeselGood(pesel));
-                Person.add(other);
-                people.put(city,Person);
-              //  System.out.println(Arrays.asList(people));
-                System.out.println(Arrays.asList(Person));
+                ListofPeople.put(city,other);
+
+      /* DUPA BLADA */
+
+
+
             }
 
             else
@@ -79,5 +86,13 @@ public class add_people {
         return false;
     }
 
+    public static void toFile( RichIterable<String> t )
+            throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("tekst.txt"));
+
+        writer.write(t);
+
+        writer.close();
+    }
 
 }
