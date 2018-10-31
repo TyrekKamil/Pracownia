@@ -10,9 +10,9 @@ import java.io.IOException;
 //Simplest job is a class that implements Job interface (execute method)
 public class toFile implements org.quartz.Job {
 
-    int i = 0;
+    private int i = 0;
 
-    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+    public void execute(JobExecutionContext jobExecutionContext) {
 
 
 
