@@ -1,8 +1,7 @@
 package quartz.job;
-
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
+import projekt.add_people;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,23 +11,32 @@ public class toFile implements org.quartz.Job {
 
     private int i = 0;
 
+
+    public void setTextToFile(String textToFile) {
+        this.textToFile = textToFile;
+    }
+
+    public String textToFile;
+
     public void execute(JobExecutionContext jobExecutionContext) {
 
-
-
-        System.out.println("Executing like there is no tomorrow " + i);
-
-        i++;
-
-        System.out.println(jobExecutionContext.getFireTime());
+        String a = add_people.getX();
+        try {
+            toFile(a);
+            System.out.println("Wykonano zapis do pliku listOfPeople.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("nie wyslzo");
+        }
 
 
 
     }
 
+
     public static void toFile( String t ) throws IOException
     {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("tekst.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("listOfPeople.txt"));
 
         writer.write(t);
 

@@ -1,94 +1,111 @@
 
+package projekt;
 
 import org.eclipse.collections.impl.multimap.list.FastListMultimap;
+import quartz.scheduler.scheduler;
 
-import java.io.IOException;
-import java.util.Scanner;
+import java.util.*;
 
 public class add_people {
 
-    public static void main(String[] args)
-    {
+
+    public static String getX() {
+        return x;
+    }
+
+    public static String x = "";
+
+
+    public static void main(String[] args) {
+        scheduler Scheduler = new scheduler();
+        Scheduler.Start();
         Start();
     }
 
-public static void Start()
-{
+    public static void Start() {
+        FastListMultimap<String,FastListMultimap> listOfPeople = FastListMultimap.newMultimap();
+        FastListMultimap<String, String> listOfPeoplePesel = FastListMultimap.newMultimap();
+        Scanner reader = new Scanner(System.in);
+        String s = "";
+        String other;
+        String city[] = new String[250];
 
-    FastListMultimap<String, String> listOfPeople = FastListMultimap.newMultimap();
-    Scanner reader = new Scanner(System.in);
-    String pesel, city, other;
-    while (true) {
+        int i=0;
+        while (true) {
 
-        System.out.println("Wpisz miasto:");
-        city = reader.nextLine();
-        other = reader.nextLine();
-        String[] sp = other.split(" ");
-        String s = " ";
+            System.out.println("Wpisz miasto:");
+            city[i] = reader.nextLine();
+            other = reader.nextLine();
+            String[] sp = other.split(" ");
 
-        if (sp[0] != null && sp[1] != null && sp[2] != null && city != null) {
+            if (/*CheckPesel.isPeselGood(sp[2])*/true) {
 
-            pesel = sp[2];
+                //listOfPeoplePesel = renamePerson(listOfPeoplePesel, listOfPeople, sp[2], sp[0]+ " " + sp[1]);
+                //listOfPeople = renameMan(listOfPeople, listOfPeoplePesel, i, city, sp[0]+ " " + sp[1],sp[2]);
+               // listOfPeoplePesel.put(sp[2], sp[0] + " " + sp[1]);
+                listOfPeople.put(city[i], new_person( sp[2], sp[0] + " " + sp[1] ) );
+                //s = listOfPeople.keyValuePairsView().toString();
+                if(i>0)
+                    Arrays.sort(city,0,i+1);
+                    s="";
+                    for(int j=0;j<=i;j++)
+                    s = s + city[j] + " " + listOfPeople.get(city[j]) + "\n";
+                s = deleteSign(s);
+                x=s;
+                System.out.println(s);
+                i++;
 
-           if( s.contains(pesel))
-            {
-                System.out.println(true);
-            }
-            else
-            System.out.println(false);
-
-
-            listOfPeople.put(city, other);
-            s = listOfPeople.keyValuePairsView().toString();
-
-
-            //s = deleteSign(s);
-
-            System.out.println(s);
-
-            try
-            {
-                toXFile.toFile(s);
-            }
-            catch(IOException e)
-            {
-                e.printStackTrace();
+            } else {
+                System.out.println("Podano zły pesel. Proszę spróbować jeszcze raz.");
             }
 
 
-
-        } else {
-            System.out.println("Nie podano wszystkich danych. Wprowadz ponownie miasto, a następnie imię, nazwisko, pesel");
         }
 
 
     }
 
-
-}
-
-    public static String deleteSign(String x)
-    {
-        x=x.replace(":"," ");
-        x=x.replace("[","");
-        x=x.replace("]","");
-        x=x.replace(", ","\n");
+    public static String deleteSign(String x) {
+        x = x.replace(":", " ");
+        x = x.replace("[", "");
+        x = x.replace("]", "");
+        x = x.replace(", ", "\n");
+        x = x.replace ("{","");
+        x = x.replace ("}","");
+        x = x.replace ("="," ");
         return x;
 
     }
 
-    public static String renamePerson(String a, String p)
+    public static FastListMultimap renamePerson(FastListMultimap a, FastListMultimap b, String p, String o)
     {
-        if( a.indexOf(p) != -1  )
+        a.removeAll(p);
+        a.put(p, o);
+        return a;
+    }
+    public static FastListMultimap renameMan(FastListMultimap a, FastListMultimap b, int j, String c[], String o, String p)
+    {
+
+        for(int k = 0; k<j+1;k++)
         {
-            return "jest";
+            if(a.containsValue(b))
+            {
+                a.remove(c[j], b);
+            }
+
         }
-        else return "nie ma";
+
+        return a;
+    }
+
+    public static FastListMultimap new_person(String key, String o) {
+        FastListMultimap<String, String> x = FastListMultimap.newMultimap();
+        x.put(key,o);
+        return x;
+
     }
 
 
 }
-
-
 
 
