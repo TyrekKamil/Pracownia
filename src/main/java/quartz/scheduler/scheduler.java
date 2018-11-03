@@ -13,6 +13,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
 
 public class scheduler {
 
+
     public static void main(String[] args) throws InterruptedException {
 
     Start();
@@ -54,7 +55,7 @@ public class scheduler {
     }
 
 
-
+/*
     public static void Study()
     {
 
@@ -89,5 +90,5 @@ public class scheduler {
             se.printStackTrace();
         }
 
-    }
+    }*/
 }

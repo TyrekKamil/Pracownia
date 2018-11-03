@@ -3,8 +3,9 @@ package projekt;
 
 import org.eclipse.collections.impl.multimap.list.FastListMultimap;
 import quartz.scheduler.scheduler;
+import quartz.scheduler.scheduler_study;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class add_people {
 
@@ -16,9 +17,8 @@ public class add_people {
     public static String x = "";
 
 
+
     public static void main(String[] args) {
-        scheduler Scheduler = new scheduler();
-        Scheduler.Start();
         Start();
     }
 
@@ -35,23 +35,25 @@ public class add_people {
 
             System.out.println("Wpisz miasto:");
             city[i] = reader.nextLine();
+            city[i] = city[i].substring(0,1).toUpperCase() + city[i].substring(1);
             other = reader.nextLine();
             String[] sp = other.split(" ");
 
             if (/*CheckPesel.isPeselGood(sp[2])*/true) {
 
                 //listOfPeoplePesel = renamePerson(listOfPeoplePesel, listOfPeople, sp[2], sp[0]+ " " + sp[1]);
+
                 //listOfPeople = renameMan(listOfPeople, listOfPeoplePesel, i, city, sp[0]+ " " + sp[1],sp[2]);
-               // listOfPeoplePesel.put(sp[2], sp[0] + " " + sp[1]);
+
+
+                listOfPeoplePesel.put(sp[2], sp[0] + " " + sp[1]);
                 listOfPeople.put(city[i], new_person( sp[2], sp[0] + " " + sp[1] ) );
-                //s = listOfPeople.keyValuePairsView().toString();
-                if(i>0)
-                    Arrays.sort(city,0,i+1);
-                    s="";
-                    for(int j=0;j<=i;j++)
-                    s = s + city[j] + " " + listOfPeople.get(city[j]) + "\n";
+                listOfPeople = ifPeselRepeat( (sp[2]),listOfPeoplePesel, listOfPeople,city,i);
+                s = listOfPeople.keyValuePairsView().toString();
+
                 s = deleteSign(s);
                 x=s;
+
                 System.out.println(s);
                 i++;
 
@@ -88,7 +90,7 @@ public class add_people {
 
         for(int k = 0; k<j+1;k++)
         {
-            if(a.containsValue(b))
+            if(a.containsKey(b))
             {
                 a.remove(c[j], b);
             }
@@ -104,6 +106,37 @@ public class add_people {
         return x;
 
     }
+
+    public static FastListMultimap ifPeselRepeat(String p, FastListMultimap ap, FastListMultimap a, String[] c, int j)
+    {
+        int i = 0;
+        int result = 0;
+        while(i<j)
+        {
+            String x = a.get(c[i]).toString();
+            x = deleteSign(x);
+            if(x.contains(p) && x.contains(c[i]) == false)
+            {
+                result++;
+            }
+            i++;
+        }
+        return a;
+    }
+
+    /*public static FastListMultimap deleteRepeat(FastListMultimap a, FastListMultimap ap, String p)
+    {
+        if(ifPeselRepeat(p) == false )
+            return a;
+        else
+        {
+            a.
+        }
+    }*/
+
+
+
+
 
 
 }
