@@ -30,6 +30,7 @@ public class add_people {
         String other;
         String city[] = new String[250];
 
+
         int i=0;
         while (true) {
 
@@ -39,7 +40,7 @@ public class add_people {
             other = reader.nextLine();
             String[] sp = other.split(" ");
 
-            if (/*CheckPesel.isPeselGood(sp[2])*/true) {
+            if (isPeselGood(sp[2]) /*true*/) {
 
                 //listOfPeoplePesel = renamePerson(listOfPeoplePesel, listOfPeople, sp[2], sp[0]+ " " + sp[1]);
 
@@ -48,13 +49,11 @@ public class add_people {
 
                 listOfPeoplePesel.put(sp[2], sp[0] + " " + sp[1]);
                 listOfPeople.put(city[i], new_person( sp[2], sp[0] + " " + sp[1] ) );
-                listOfPeople = ifPeselRepeat( (sp[2]),listOfPeoplePesel, listOfPeople,city,i);
+                // skad to mam :O listOfPeople = ifPeselRepeat( (sp[2]),listOfPeoplePesel, listOfPeople,city,i);
                 s = listOfPeople.keyValuePairsView().toString();
 
                 s = deleteSign(s);
                 x=s;
-
-                System.out.println(s);
                 i++;
 
             } else {
@@ -136,6 +135,40 @@ public class add_people {
 
 
 
+    public static Boolean isPeselGood(String p)
+    {
+        if(p.length()==11 && checkPesel(p)==true) return true;
+        else
+        {
+            return false;
+        }
+    }
+
+    public static Boolean checkPesel(String p)
+    {
+        long psl = Long.parseLong(p);
+        long psl_id[] = new long[11];
+        int i=9;
+        psl_id[10]=psl%10;
+        psl=psl/10;
+
+        while(i>=0)
+        {
+            psl_id[i]=psl%10;
+            psl=psl/10;
+            i--;
+        }
+
+        float sum=psl_id[0]+3*psl_id[1]+7*psl_id[2]+9*psl_id[3]+psl_id[4]+3*psl_id[5]+7*psl_id[6]+9*psl_id[7]+psl_id[8]+3*psl_id[9];
+        sum %= 10;
+        sum = 10 - sum;
+        sum %= 10;
+
+        if(sum==psl_id[10])
+            return true;
+        else
+            return false;
+    }
 
 
 

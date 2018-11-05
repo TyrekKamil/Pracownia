@@ -25,7 +25,7 @@ public class toFile implements org.quartz.Job {
         String a = add_people.getX();
         try {
             toFile(a);
-            System.out.println("Wykonano zapis do pliku listOfPeople.txt");
+            System.out.println("Wykonano zapis do pliku odp.txt");
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("nie wyslzo");
@@ -38,11 +38,11 @@ public class toFile implements org.quartz.Job {
 
     public static void toFile( String t ) throws IOException
     {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("listOfPeople.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("odp.txt"));
         writer.write(t);
         writer.close();
-        String input;
-        FileReader fileReader = new FileReader("listOfPeople.txt");
+        // sort/*
+        FileReader fileReader = new FileReader("odp.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String inputLine;
         List<String> lineList = new ArrayList<String>();
@@ -53,7 +53,7 @@ public class toFile implements org.quartz.Job {
 
         Collections.sort(lineList);
 
-        FileWriter fileWriter = new FileWriter("listOfPeople.txt");
+        FileWriter fileWriter = new FileWriter("odp.txt");
         PrintWriter out = new PrintWriter(fileWriter);
         for (String outputLine : lineList) {
             out.println(outputLine);
@@ -61,7 +61,6 @@ public class toFile implements org.quartz.Job {
         out.flush();
         out.close();
         fileWriter.close();
-
 
 
 

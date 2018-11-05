@@ -29,6 +29,8 @@ public class Person
       this.pesel = pesel;
    }
 
+   public String getAll() { return imie + " " + nazwisko + " " + pesel;}
+
    public Person(String imie, String nazwisko, String pesel) {
       this.imie = imie;
       this.nazwisko = nazwisko;

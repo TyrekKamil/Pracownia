@@ -11,8 +11,6 @@ public class Study  implements org.quartz.Job{
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
         {
-            String zajecia = "test";
-            String time = "test";
             Date x = new Date();
             long end = x.getTime();
             Date current = new Date();
